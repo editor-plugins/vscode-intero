@@ -82,10 +82,26 @@ class Intero extends EventEmitter {
     if (this.buffer.indexOf("Ok, modules loaded") > -1) {
       console.log("load file success")
       this.buffer = ''
+      this.emit('message', {
+        loadStatus: 'ok'
+      })
+    }
+
+    if (this.buffer.indexOf("Failed, modules loaded") > -1) {
+      console.log("load file failed")
+      this.buffer = ''
+      this.emit('message', {
+        loadStatus: 'failed'
+      })
     }
 
     if (this.buffer.indexOf("\n") > -1) {
-      console.log("buffer => " + this.buffer)
+      if (!(this.buffer.indexOf("Compiling") > -1 && this.buffer.indexOf("interpreted") > -1)) {
+        if (this.buffer.indexOf("::") > -1) {
+          console.log("buffer => " + this.buffer)
+          this.emit('message', this.buffer)
+        }
+      }
       this.buffer = ''
     }
   }

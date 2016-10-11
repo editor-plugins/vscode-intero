@@ -25,5 +25,4 @@ module.exports = {
   getCommands,
   initialize: commands.initialize,
   destroy: commands.destroy,
-  diagnosticCollection: commands.diagnosticCollection
 }

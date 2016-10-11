@@ -3,7 +3,6 @@ let vscode     = require('vscode')
 
 let model = null
 let outputChannel = vscode.window.createOutputChannel('Intero')
-let diagnosticCollection = vscode.languages.createDiagnosticCollection()
 
 let initialize = () => {
   if (!model) {
@@ -38,7 +37,6 @@ let loadFile = (uri) => {
     outputChannel.clear()
     outputChannel.show()
     outputChannel.append("Intero: File loaded successfull")
-    diagnosticCollection.clear()
   }
 
   new Promise((resolve, reject) => {
@@ -52,29 +50,20 @@ let loadFile = (uri) => {
   })
 }
 
-let cmdMsgs = {
-  type: 'Type of',
-  usages: 'Usages of',
-  definition: 'Definition of'
-}
-
 let getInfoForWord = (uri, cmd) => {
   let currentWord = getWord()
   if (!currentWord) return
 
   let successHandler = (arg) => {
-    let info = arg.msg[0]
-    let highlightingInfo = arg.msg[1]
+    let info = arg.msg
     outputChannel.clear()
     outputChannel.show()
-    outputChannel.appendLine('Intero: ' + cmdMsgs[cmd] + ' ' + currentWord)
     outputChannel.append(info)
-    diagnosticCollection.clear()
   }
 
   new Promise((resolve, reject) => {
-    /*model.load(uri).filter((arg) => {
-      return arg.responseType === 'return'
+    model.load(uri).filter((arg) => {
+      return arg.loadStatus == 'ok'
     }).flatMap(() => {
       switch (cmd) {
         case 'type':
@@ -87,7 +76,7 @@ let getInfoForWord = (uri, cmd) => {
           return model.getDefinition(uri, currentWord)
           break
       }
-    }).subscribe(successHandler, displayErrors)*/
+    }).subscribe(successHandler, displayErrors)
     model.getType(uri, currentWord).subscribe(successHandler, displayErrors)
     showLoading()
     resolve()
@@ -108,42 +97,13 @@ let getDefinition = (uri) => {
   getInfoForWord(uri, 'definition')
 }
 
-let displayErrors = (err) => {
-  replChannel.clear()
-  aproposChannel.clear()
-  outputChannel.clear()
-  outputChannel.show()
-  diagnosticCollection.clear()
-  let buf = []
-  let diagnostics = []
-  if (err.warnings) {
-    let len = err.warnings.length
-    buf.push("Errors (" + len + ")")
-    err.warnings.forEach(function(w) {
-      let file = w[0].replace("./", err.cwd + "/")
-      let line = w[1][0]
-      let char = w[1][1]
-      let message = w[3]
-      buf.push(file + ":" + line + ":" + char)
-      buf.push(message)
-      buf.push("")
-      if (line > 0) {
-        let range = new vscode.Range(line - 1, char - 1, line, 0)
-        let diagnostic = new vscode.Diagnostic(range, message, vscode.DiagnosticSeverity.Error)
-        diagnostics.push([vscode.Uri.file(file), [diagnostic]])
-      }
-    })
-    outputChannel.appendLine(buf.join('\n'))
-    diagnosticCollection.set(diagnostics)
-  }
-}
+let displayErrors = (err) => {}
 
 let destroy = () => {
   if(model != null) model.stop()
 }
 
 module.exports = {
-  diagnosticCollection,
   initialize,
   loadFile,
   typeForWord,
