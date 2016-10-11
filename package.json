@@ -1,0 +1,77 @@
+{
+  "name": "Intero",
+  "description": "Intero Support for Visual Studio Code",
+  "version": "1.0.0",
+  "publisher": "zjhmale",
+  "engines": {
+    "vscode": "^0.10.1"
+  },
+  "icon": "images/intero.png",
+  "keywords": [
+    "language",
+    "intero"
+  ],
+  "license": "BSD",
+  "homepage": "https://github.com/zjhmale/vscode-intero",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zjhmale/vscode-intero.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zjhmale/vscode-intero/issues",
+    "email": "zjhmale@gmail.com"
+  },
+  "categories": [
+    "Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:haskell"
+  ],
+  "main": "./src/extension",
+  "contributes": {
+    "commands": [{
+      "command": "intero.load",
+      "title": "Intero: load",
+      "description": "Load file"
+    }, {
+      "command": "intero.type-of",
+      "title": "Intero: type of",
+      "description": "Type of identifier"
+    }, {
+      "command": "intero.usages-of",
+      "title": "Intero: usages of",
+      "description": "Usages of identifier"
+    }, {
+      "command": "intero.get-definition",
+      "title": "Intero: definition of",
+      "description": "Get definition of identifier"
+    }],
+    "keybindings": [{
+      "key": "shift+ctrl+l",
+      "mac": "shift+cmd+l",
+      "command": "intero.load"
+    }, {
+      "key": "shift+ctrl+t",
+      "mac": "shift+cmd+t",
+      "command": "intero.type-of"
+    }, {
+      "key": "shift+ctrl+u",
+      "mac": "shift+cmd+u",
+      "command": "intero.usages-of"
+    }, {
+      "key": "shift+ctrl+d",
+      "mac": "shift+cmd+d",
+      "command": "intero.definition-of"
+    }]
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "dependencies": {
+    "rx-lite": "4.0.0"
+  },
+  "devDependencies": {
+    "vscode": "^0.11.0"
+  }
+}
