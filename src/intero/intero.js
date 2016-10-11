@@ -79,7 +79,7 @@ class Intero extends EventEmitter {
       this.buffer = ''
     }
 
-    if (this.buffer.indexOf("Ok, modules") > -1) {
+    if (this.buffer.indexOf("Ok, modules loaded") > -1) {
       console.log("load file success")
       this.buffer = ''
     }
