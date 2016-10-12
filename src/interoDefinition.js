@@ -26,8 +26,8 @@ let InteroDefinitionProvider = (function () {
                 let startLine = parseInt(_.replace(startPoint[0], "(", ""))
                 let startCol = parseInt(_.replace(startPoint[1], ")", ""))
                 let endLine = parseInt(_.replace(endPoint[0], "(", ""))
-                let endCol = parseInt(_.replace(endPoint[1], ")", ""))  
-            
+                let endCol = parseInt(_.replace(endPoint[1], ")", ""))
+
                 let range = new vscode.Range(startLine - 1, startCol - 1, endLine - 1, endCol - 1)
 
                 return new vscode.Location(document.uri, range)

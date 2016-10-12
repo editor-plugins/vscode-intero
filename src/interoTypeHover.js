@@ -18,7 +18,6 @@ let InteroHoverProvider = (function () {
               resolve(arg)
           })
         }).then(function (result) {
-            console.log("result => " + result.msg)
             if (result && result.type == 'type') {
                 return new vscode.Hover(result.msg)
             } else {

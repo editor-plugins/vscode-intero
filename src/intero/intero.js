@@ -23,7 +23,7 @@ class Intero extends EventEmitter {
       ]
 
       let root = vscode.workspace.rootPath
-      
+
       let options = {
         cwd: root
       }
@@ -107,13 +107,13 @@ class Intero extends EventEmitter {
           })
         }
 
-        //:uses :loc-at Users/zjh/Documents/haskellspace/ntha/src/Ntha/Type/Infer.hs:(31,1)-(31,6)        
+        //:uses :loc-at Users/zjh/Documents/haskellspace/ntha/src/Ntha/Type/Infer.hs:(31,1)-(31,6)
         if (reg.test(this.buffer)) {
           console.log("locat => " + this.buffer)
           this.emit('message', {
             type: 'definition',
             msg: this.buffer
-          })  
+          })
         }
       }
       this.buffer = ''

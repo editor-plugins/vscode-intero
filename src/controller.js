@@ -13,11 +13,11 @@ let getCommands = () => {
 let runCommand = (command) => {
   return (_) => {
     let document = vscode.window.activeTextEditor.document
-    
+
     if (document.languageId != 'haskell') return
     let uri = document.uri.path
 
-    command(uri)  
+    command(uri)
   }
 }
 
