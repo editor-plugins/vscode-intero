@@ -9,4 +9,6 @@
 
 | command | shortcut |
 |---|---|
+| Load | shift + cmd/ctrl + l |
+| TypeAt | shift + cmd/ctrl + t |
 
