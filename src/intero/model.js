@@ -56,16 +56,16 @@ class InteroModel {
     return this.prepareCommand(`:type-at ${uri} ${l + 1} ${c + 1} ${l + 1} ${c + 1} ${word}\n`)
   }
 
-  getDefinition(uri, word) {
-    return this.prepareCommand(`:loc-at ${uri} 1 1 1 1 ${word}\n`)
+  getDefinition(uri, l, c, word) {
+    return this.prepareCommand(`:loc-at ${uri} ${l + 1} ${c + 1} ${l + 1} ${c + 1} ${word}\n`)
   }
 
-  getUsages(uri, word) {
-    return this.prepareCommand(`:uses ${uri} 1 1 1 1 ${word}\n`)
+  getUsages(uri, l, c, word) {
+    return this.prepareCommand(`:uses ${uri} ${l + 1} ${c + 1} ${l + 1} ${c + 1} ${word}\n`)
   }
 
-  replCompletions(uri, word) {
-    return this.prepareCommand(`:complete-at ${uri} 1 1 1 1 ${word}\n`)
+  replCompletions(uri, l, c, word) {
+    return this.prepareCommand(`:complete-at ${uri} ${l + 1} ${c + 1} ${l + 1} ${c + 1} ${word}\n`)
   }
 }
 

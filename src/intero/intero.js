@@ -2,6 +2,8 @@ let cp           = require('child_process')
 let EventEmitter = require('events').EventEmitter
 let vscode       = require('vscode')
 
+let reg = /\(\d+,\d+\)-\(\d+,\d+\)/g
+
 class Intero extends EventEmitter {
   constructor() {
     super()
@@ -71,7 +73,6 @@ class Intero extends EventEmitter {
   }
 
   stdout(data) {
-    //console.log("data => " + data)
     this.buffer += data
     
     if (this.buffer.indexOf("Prelude>") > -1) {
@@ -97,7 +98,9 @@ class Intero extends EventEmitter {
 
     if (this.buffer.indexOf("\n") > -1) {
       if (!(this.buffer.indexOf("Compiling") > -1 && this.buffer.indexOf("interpreted") > -1)) {
-        if (this.buffer.indexOf("::") > -1) {
+        //:type-at fresh :: Type -> NonGeneric -> Infer Type
+        //:uses :loc-at Users/zjh/Documents/haskellspace/ntha/src/Ntha/Type/Infer.hs:(31,1)-(31,6)        
+        if (this.buffer.indexOf("::") > -1 || reg.test(this.buffer)) {
           console.log("buffer => " + this.buffer)
           this.emit('message', this.buffer)
         }

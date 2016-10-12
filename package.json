@@ -42,7 +42,7 @@
       "title": "Intero: usages of",
       "description": "Usages of identifier"
     }, {
-      "command": "intero.get-definition",
+      "command": "intero.definition-of",
       "title": "Intero: definition of",
       "description": "Get definition of identifier"
     }],

@@ -75,10 +75,10 @@ let getInfoForWord = (uri, cmd) => {
           return model.getType(uri, position.line, position.character, currentWord)
           break
         case 'usages':
-          return model.getUsages(uri, currentWord)
+          return model.getUsages(uri, position.line, position.character, currentWord)
           break
         case 'definition':
-          return model.getDefinition(uri, currentWord)
+          return model.getDefinition(uri, position.line, position.character, currentWord)
           break
       }
     }).subscribe(successHandler, displayErrors)
