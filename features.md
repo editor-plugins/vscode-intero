@@ -8,4 +8,4 @@
 
 `F12`
 
-![locat](./images/screeshots/locat.gif)
+![locat](./images/screenshots/definition.gif)
