@@ -11,4 +11,5 @@
 |---|---|
 | Load | shift + cmd/ctrl + l |
 | TypeAt | shift + cmd/ctrl + t |
+| LocAt | F12 | [go-to-definition](https://code.visualstudio.com/docs/editor/editingevolved#_go-to-definition)
 

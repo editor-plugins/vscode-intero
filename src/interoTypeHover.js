@@ -15,11 +15,12 @@ let InteroHoverProvider = (function () {
           }).flatMap(() => {
             return commands.getModel().getType(uri, position.line, position.character, currentWord)
           }).subscribe(function(arg) {
-              resolve(arg.msg)
+              resolve(arg)
           })
         }).then(function (result) {
-            if (result) {
-                return new vscode.Hover(result)
+            console.log("result => " + result.msg)
+            if (result && result.type == 'type') {
+                return new vscode.Hover(result.msg)
             } else {
                 return null
             }

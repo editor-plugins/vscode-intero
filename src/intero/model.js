@@ -42,9 +42,7 @@ class InteroModel {
         loadStatus: 'ok'
       })
     } else {
-      subject.onNext({
-        msg: cmd
-      })
+      subject.onNext(cmd)
     }
   }
 

@@ -99,10 +99,21 @@ class Intero extends EventEmitter {
     if (this.buffer.indexOf("\n") > -1) {
       if (!(this.buffer.indexOf("Compiling") > -1 && this.buffer.indexOf("interpreted") > -1)) {
         //:type-at fresh :: Type -> NonGeneric -> Infer Type
+        if (this.buffer.indexOf("::") > -1) {
+          console.log("typeat => " + this.buffer)
+          this.emit('message', {
+            type: 'type',
+            msg: this.buffer 
+          })
+        }
+
         //:uses :loc-at Users/zjh/Documents/haskellspace/ntha/src/Ntha/Type/Infer.hs:(31,1)-(31,6)        
-        if (this.buffer.indexOf("::") > -1 || reg.test(this.buffer)) {
-          console.log("buffer => " + this.buffer)
-          this.emit('message', this.buffer)
+        if (reg.test(this.buffer)) {
+          console.log("locat => " + this.buffer)
+          this.emit('message', {
+            type: 'definition',
+            msg: this.buffer
+          })  
         }
       }
       this.buffer = ''
