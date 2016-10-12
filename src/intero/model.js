@@ -52,8 +52,8 @@ class InteroModel {
     return this.prepareCommand(`:l ${uri}\n`)
   }
 
-  getType(uri, word) {
-    return this.prepareCommand(`:type-at ${uri} 1 1 1 1 ${word}\n`)
+  getType(uri, l, c, word) {
+    return this.prepareCommand(`:type-at ${uri} ${l + 1} ${c + 1} ${l + 1} ${c + 1} ${word}\n`)
   }
 
   getDefinition(uri, word) {

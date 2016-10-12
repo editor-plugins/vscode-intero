@@ -10,17 +10,17 @@ let initialize = () => {
   }
 }
 
+let getModel = () => {
+  return model
+}
+
 let showLoading = () => {
   outputChannel.clear()
   outputChannel.show()
   outputChannel.append("loading...")
 }
 
-let getWord = () => {
-  let editor = vscode.window.activeTextEditor
-  let document = editor.document
-  document.save()
-  let position = editor.selection.active
+let getWord = (document, position) => {
   let wordRange = document.getWordRangeAtPosition(position)
   let currentWord = document.getText(wordRange)
   if (currentWord.match(/\r|\n| /g)) {
@@ -51,7 +51,12 @@ let loadFile = (uri) => {
 }
 
 let getInfoForWord = (uri, cmd) => {
-  let currentWord = getWord()
+  let editor = vscode.window.activeTextEditor
+  let document = editor.document
+  document.save()
+  let position = editor.selection.active
+  
+  let currentWord = getWord(document, position)
   if (!currentWord) return
 
   let successHandler = (arg) => {
@@ -67,7 +72,7 @@ let getInfoForWord = (uri, cmd) => {
     }).flatMap(() => {
       switch (cmd) {
         case 'type':
-          return model.getType(uri, currentWord)
+          return model.getType(uri, position.line, position.character, currentWord)
           break
         case 'usages':
           return model.getUsages(uri, currentWord)
@@ -77,7 +82,6 @@ let getInfoForWord = (uri, cmd) => {
           break
       }
     }).subscribe(successHandler, displayErrors)
-    model.getType(uri, currentWord).subscribe(successHandler, displayErrors)
     showLoading()
     resolve()
   }).then(function () {
@@ -104,6 +108,8 @@ let destroy = () => {
 }
 
 module.exports = {
+  getWord,
+  getModel,
   initialize,
   loadFile,
   typeForWord,
